@@ -4,7 +4,8 @@ EMIRA adalah aplikasi sistem informasi manajemen rumah sakit berbasis web yang d
 
 ## Teknologi yang Digunakan
 
-- **Framework**: Laravel 10
+- **Framework**: Laravel 12
+- **PHP**: ^8.2
 - **Database**: MySQL
 - **Frontend**: Bootstrap 5, Blade Template
 - **Icons**: Font Awesome 6
@@ -140,29 +141,10 @@ Buka browser: `http://127.0.0.1:8000`
 
 | Role | Email | Password |
 |------|-------|----------|
-| Super Admin | admin@emira.com | password |
-| Dokter | dokter@emira.com | password |
-| Perawat | perawat@emira.com | password |
-| Rekam Medis | rekammedis@emira.com | password |
-
-## Struktur Database
-
-- **roles** - Role pengguna
-- **users** - Akun pengguna
-- **polis** - Data poli/klinik
-- **dokters** - Data dokter
-- **jadwals** - Jadwal praktik dokter
-- **ruangans** - Data ruangan
-- **pasiens** - Data pasien
-- **antrians** - Antrian pasien
-- **kunjungans** - Kunjungan pasien
-- **rekam_medis** - Rekam medis
-- **diagnosas** - Diagnosa ICD-10
-- **tindakan_medis** - Tindakan medis
-- **vital_signs** - Tanda vital
-- **icd10_masters** - Master ICD-10
-- **master_tindakans** - Master tindakan
-- **activity_logs** - Log aktivitas
+| Super Admin | superadmin@emira.app | emira@superadmin |
+| Dokter | andi.wijaya@emira.app | dokter123 |
+| Perawat | rina.susanti@emira.app | perawat123 |
+| Rekam Medis | ahmad.fauzi@emira.app | rekammedis123 |
 
 ## Lisensi
 
