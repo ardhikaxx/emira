@@ -1,0 +1,57 @@
+/* EMIRA Custom CSS */
+:root {
+    --emira-primary: #0A6EBD;
+    --emira-secondary: #17B169;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.bg-emira {
+    background-color: var(--emira-primary) !important;
+}
+
+.text-emira {
+    color: var(--emira-primary) !important;
+}
+
+.btn-emira {
+    background-color: var(--emira-primary);
+    border-color: var(--emira-primary);
+    color: white;
+}
+
+.btn-emira:hover {
+    background-color: #085a9e;
+    border-color: #085a9e;
+    color: white;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.stat-card {
+    border-left: 4px solid var(--emira-primary);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #495057;
+}
+
+.badge {
+    font-weight: 500;
+}
