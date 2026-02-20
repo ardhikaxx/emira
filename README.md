@@ -8,58 +8,92 @@ EMIRA adalah aplikasi sistem informasi manajemen rumah sakit berbasis web yang d
 - **Database**: MySQL
 - **Frontend**: Bootstrap 5, Blade Template
 - **Icons**: Font Awesome 6
-- **Authentication**: Laravel Breeze / Session-based
+- **Authentication**: Session-based
 
 ## Fitur Utama
 
 ### 1. Manajemen Pasien
-- Pendaftaran pasien baru
+- Pendaftaran pasien baru dengan nomor RM otomatis
 - Riwayat kunjungan pasien
-- Data demografi pasien (NIK, tanggal lahir, kontak, dll.)
+- Data demografi pasien (NIK, nama lengkap, tanggal lahir, jenis kelamin, kontak)
 
-### 2. Manajemen Poli dan Dokter
-- Kelola data poli/klinik
-- Kelola data dokter dengan spesialisasi
-- Jadwal praktik dokter
-
-### 3. Sistem Antrian
-- Pendaftaran antrian pasien
-- Pemanggilan antrian
+### 2. Sistem Antrian
+- Pendaftaran antrian pasien per poli
+- Pemilihan dokter
+- Pemanggilan dan melayani antrian
 - Status antrian real-time (menunggu, dipanggil, dalam pelayanan, selesai)
 
-### 4. Rekam Medis
-- Pembuatan rekam medis elektronik
-- Pencatatan anamnesis dan diagnose
-- Kode ICD-10
+### 3. Rekam Medis Elektronik
+- Pembuatan rekam medis berdasarkan kunjungan
+- Pencatatan anamnesis
+- Diagnosa dengan kode ICD-10
 - Tindakan medis
+- Riwayat penyakit keluarga dan alergi
 
-### 5. Vital Sign
+### 4. Vital Sign
 - Pencatatan tanda vital pasien
-- Tekanan darah, nadi, pernapasan, suhu
-- Saturasi oksigen, berat badan, tinggi badan
+- Tekanan darah (sistol/diastol)
+- Nadi, pernapasan, suhu tubuh
+- Saturasi oksigen
+- Berat badan, tinggi badan, BMI
+- Gula darah sewaktu
 
-### 6. Manajemen Ruangan
-- Kelola ruangan rawat inap, ICU, UGD, Isolasi, VIP
-- Kapasitas dan status ruangan
+### 5. Manajemen Poli
+- Kelola data poli/klinik
+- Kode poli dan status aktif
 
-### 7. Master Data
-- Kode ICD-10 (diagnosa)
+### 6. Manajemen Dokter
+- Kelola data dokter
+- Spesialisasi dan poli penugasan
+- No. SIP, No. STR, NIP
+
+### 7. Jadwal Praktik Dokter
+- Jadwal praktik per hari
+- Jam mulai dan selesai
+- Kuota pasien per hari
+
+### 8. Manajemen Ruangan
+- Kelola ruangan (rawat inap, ICU, UGD, isolasi, VIP)
+- Kapasitas dan lokasi lantai
+
+### 9. Master Data
+- Kode ICD-10 (diagnosa penyakit)
 - Master tindakan medis
-- Pengaturan sistem
+- Kategori tindakan
 
-### 8. Manajemen User
+### 10. Manajemen User
 - Kelola pengguna sistem
 - Hak akses berbasis role
+
+### 11. Pengaturan Sistem
+- Konfigurasi aplikasi rumah sakit
 
 ## Role Pengguna
 
 | Role | Deskripsi |
 |------|-----------|
-| **Super Admin** | Akses penuh ke semua fitur dan pengaturan sistem |
-| **Admin** | Mengelola data master, pasien, dan laporan |
-| **Dokter** | Akses rekam medis, antrian pasien, dan catatan medis |
-| **Perawat** | Mencatat vital sign dan tindakan keperawatan |
-| **Loket** | Mendaftarkan pasien dan antrian |
+| **Super Admin** | Akses penuh ke seluruh fitur sistem termasuk master data, user, poli, dokter, ruangan, dan pengaturan |
+| **Dokter** | Input rekam medis, diagnosa, tindakan medis, dan surat keterangan |
+| **Perawat** | Kelola antrian, vital sign, dan tindakan keperawatan |
+| **Rekam Medis** | Registrasi pasien, arsip rekam medis, dan laporan EMIRA |
+
+## Hak Akses per Role
+
+| Fitur | Super Admin | Dokter | Perawat | Rekam Medis |
+|-------|:------------:|:------:|:-------:|:-----------:|
+| Dashboard | ✓ | ✓ | ✓ | ✓ |
+| Antrian | ✓ | ✓ | ✓ | ✓ |
+| Vital Sign | ✓ | ✓ | ✓ | ✓ |
+| Pasien | ✓ | - | - | ✓ |
+| Rekam Medis | ✓ | ✓ | - | ✓ |
+| Poli | ✓ | - | - | - |
+| Dokter | ✓ | - | - | - |
+| Jadwal Dokter | ✓ | - | - | - |
+| Ruangan | ✓ | - | - | - |
+| ICD-10 | ✓ | - | - | - |
+| Tindakan | ✓ | - | - | - |
+| User | ✓ | - | - | - |
+| Pengaturan | ✓ | - | - | - |
 
 ## Instalasi
 
@@ -77,11 +111,20 @@ npm install
 3. Konfigurasi file `.env`
 ```bash
 cp .env.example .env
-php artisan key:generate
+```
+Edit koneksi database:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=emira
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-4. Setup database
+4. Generate key dan setup
 ```bash
+php artisan key:generate
 php artisan migrate
 php artisan db:seed
 ```
@@ -91,31 +134,35 @@ php artisan db:seed
 php artisan serve
 ```
 
-## Default Login
+Buka browser: `http://127.0.0.1:8000`
 
-Setelah seeding, gunakan kredensial berikut:
+## Default Login (Setelah Seeding)
 
 | Role | Email | Password |
 |------|-------|----------|
 | Super Admin | admin@emira.com | password |
-| Admin | admin2@emira.com | password |
 | Dokter | dokter@emira.com | password |
 | Perawat | perawat@emira.com | password |
-| Loket | loket@emira.com | password |
+| Rekam Medis | rekammedis@emira.com | password |
 
-## Struktur Menu
+## Struktur Database
 
-- **Dashboard**: Halaman utama dengan statistik
-- **Pasien**: Kelola data pasien
-- **Antrian**: Sistem antrian pasien
-- **Rekam Medis**: Dokumentasi medis
-- **Poli**: Kelola poli
-- **Dokter**: Kelola dokter
-- **Jadwal**: Jadwal praktik dokter
-- **Ruangan**: Kelola ruangan
-- **Master**: ICD-10, Tindakan
-- **User**: Kelola pengguna
-- **Pengaturan**: Pengaturan aplikasi
+- **roles** - Role pengguna
+- **users** - Akun pengguna
+- **polis** - Data poli/klinik
+- **dokters** - Data dokter
+- **jadwals** - Jadwal praktik dokter
+- **ruangans** - Data ruangan
+- **pasiens** - Data pasien
+- **antrians** - Antrian pasien
+- **kunjungans** - Kunjungan pasien
+- **rekam_medis** - Rekam medis
+- **diagnosas** - Diagnosa ICD-10
+- **tindakan_medis** - Tindakan medis
+- **vital_signs** - Tanda vital
+- **icd10_masters** - Master ICD-10
+- **master_tindakans** - Master tindakan
+- **activity_logs** - Log aktivitas
 
 ## Lisensi
 
