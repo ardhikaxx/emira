@@ -15,10 +15,20 @@ use App\Http\Controllers\Icd10Controller;
 use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\PengaturanController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('booking.create');
 });
+
+// Public: Booking Online
+Route::get('/booking', [BookingController::class, 'create'])->name('booking.create');
+Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/booking/success/{kode_booking}', [BookingController::class, 'success'])->name('booking.success');
+Route::get('/booking/check', [BookingController::class, 'checkStatus'])->name('booking.check');
+Route::post('/booking/check-pasien', [BookingController::class, 'checkPasien'])->name('booking.check-pasien');
+Route::post('/booking/get-jadwal', [BookingController::class, 'getJadwalDokter'])->name('booking.get-jadwal');
+Route::post('/booking/get-status', [BookingController::class, 'getStatus'])->name('booking.get-status');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -68,6 +78,12 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::resource('tindakan', TindakanController::class);
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
     Route::put('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
+    
+    // Booking Management
+    Route::get('/booking-management', [BookingController::class, 'index'])->name('booking.index');
+    Route::get('/booking/{booking}/detail', [BookingController::class, 'detail'])->name('booking.detail');
+    Route::post('/booking/{booking}/confirm', [BookingController::class, 'confirm'])->name('booking.confirm');
+    Route::post('/booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 });
 
 // API

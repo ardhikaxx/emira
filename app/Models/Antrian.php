@@ -39,4 +39,9 @@ class Antrian extends Model
     {
         return $this->hasMany(Kunjungan::class);
     }
+
+    public function booking(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

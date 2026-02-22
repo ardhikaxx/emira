@@ -62,6 +62,20 @@
                 <div class="nav-indicator"></div>
             </a>
             
+            @if(Auth::user()->isSuperAdmin())
+            <a class="nav-item {{ request()->routeIs('booking.*') ? 'active' : '' }}" href="{{ route('booking.index') }}">
+                <div class="nav-icon"><i class="fas fa-calendar-check"></i></div>
+                <span class="nav-text">Booking Online</span>
+                @php
+                $bookingCount = \App\Models\Booking::where('status', 'pending')->count();
+                @endphp
+                @if($bookingCount > 0)
+                <span class="nav-badge">{{ $bookingCount }}</span>
+                @endif
+                <div class="nav-indicator"></div>
+            </a>
+            @endif
+            
             @if(Auth::user()->isSuperAdmin() || Auth::user()->isRekamMedis() || Auth::user()->isDokter())
             <a class="nav-item {{ request()->routeIs('rekam_medis.*') ? 'active' : '' }}" href="{{ route('rekam_medis.index') }}">
                 <div class="nav-icon"><i class="fas fa-file-medical-alt"></i></div>

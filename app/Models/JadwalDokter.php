@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JadwalDokter extends Model
 {
@@ -26,5 +27,10 @@ class JadwalDokter extends Model
     public function poli(): BelongsTo
     {
         return $this->belongsTo(Poli::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }

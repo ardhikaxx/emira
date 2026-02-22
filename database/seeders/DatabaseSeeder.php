@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AntrianKunjunganSeeder::class,
             RekamMedisSeeder::class,
             VitalSignSeeder::class,
+            BookingSeeder::class,
         ]);
     }
 }

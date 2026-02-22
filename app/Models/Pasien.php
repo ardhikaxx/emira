@@ -57,6 +57,11 @@ class Pasien extends Model
         return $this->hasMany(RawatInap::class);
     }
 
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function getUmurAttribute(): int
     {
         if (!$this->tanggal_lahir) return 0;
